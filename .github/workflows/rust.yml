@@ -8,6 +8,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  RUSTFLAGS: -D warnings
 
 jobs:
   lint:
@@ -19,12 +20,14 @@ jobs:
       with:
         toolchain: 1.70.0
         components: rustfmt, clippy
+    - name: Run check
+      run: cargo check --workspace
     - name: Run rustfmt
       run: cargo fmt --all -- --check
     - name: Run clippy
       run: cargo clippy -- -D warnings
 
-  pre-test:
+  pretest:
 
     runs-on: ubuntu-latest
 
@@ -35,15 +38,14 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
 
-  verification:
+  verify:
 
     runs-on: ubuntu-latest
-    needs: pre-test
+    needs: pretest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v1
+    - uses: actions/setup-python@v1
     - name: Install dependencies
       run: pip3 install -U online-judge-verify-helper
     - name: Run tests
@@ -52,7 +54,7 @@ jobs:
   doc:
 
     runs-on: ubuntu-latest
-    needs: verification
+    needs: verify
     if: github.event_name == 'push' || github.event.pull_request.merged == true
 
     steps:
