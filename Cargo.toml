@@ -3,7 +3,7 @@ members = ["verification/"]
 
 [package]
 name = "procon-lib-rs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "CC0-1.0"
 
