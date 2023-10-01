@@ -1,7 +1,9 @@
 //! Utilities for competitive programming
 
-pub mod aplusb;
+pub mod primes;
 pub mod unionfind;
 
-pub use aplusb::add;
+mod internal_montgomery;
+
+pub use primes::{factorize, is_prime};
 pub use unionfind::UnionFind;
