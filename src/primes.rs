@@ -61,17 +61,31 @@ pub fn is_prime(n: u64) -> bool {
 /// assert_eq!(factorize(111111), [3, 7, 11, 13, 37]);
 /// ```
 pub fn factorize(n: u64) -> Vec<u64> {
-    if n == 0 {
+    if n < 2 {
         return vec![];
     }
     let ctz = n.trailing_zeros() as usize;
-    let n = n >> ctz;
-    let mut res = vec![2; ctz];
-    if n > 1 {
-        factorize_sub(n, &mut res);
-        res.sort_unstable();
+    let mut n = n >> ctz;
+    let mut factors = vec![2; ctz];
+    while n % 3 == 0 {
+        factors.push(3);
+        n /= 3;
     }
-    res
+    while n % 5 == 0 {
+        factors.push(5);
+        n /= 5;
+    }
+    while n % 7 == 0 {
+        factors.push(7);
+        n /= 7;
+    }
+    if n != 1 {
+        let mut large_factors = vec![];
+        factorize_sub(n, &mut large_factors);
+        large_factors.sort_unstable();
+        factors.append(&mut large_factors);
+    }
+    factors
 }
 
 fn miller_rabin(n: u64, monty: &Montgomery) -> bool {
@@ -104,41 +118,22 @@ fn miller_rabin(n: u64, monty: &Montgomery) -> bool {
     bases.into_iter().all(f)
 }
 
-fn factorize_sub(n: u64, res: &mut Vec<u64>) {
+fn factorize_sub(n: u64, factors: &mut Vec<u64>) {
     debug_assert_eq!(n % 2, 1);
     debug_assert!(n >= 3);
 
-    if n < 9 {
-        res.push(n);
-        return;
-    }
-    if n % 3 == 0 {
-        res.push(3);
-        factorize_sub(n / 3, res);
-        return;
-    }
-    if n % 5 == 0 {
-        res.push(5);
-        factorize_sub(n / 5, res);
-        return;
-    }
-    if n % 7 == 0 {
-        res.push(7);
-        factorize_sub(n / 7, res);
-        return;
-    }
     if n < 121 {
-        res.push(n);
+        factors.push(n);
         return;
     }
     let monty = Montgomery::new(n);
     if miller_rabin(n, &monty) {
-        res.push(n);
+        factors.push(n);
         return;
     }
     let d = find_divisor(n, &monty);
-    factorize_sub(d, res);
-    factorize_sub(n / d, res);
+    factorize_sub(d, factors);
+    factorize_sub(n / d, factors);
 }
 
 /// Pollard's rho algorithm
