@@ -6,4 +6,4 @@ pub mod unionfind;
 mod internal_montgomery;
 
 pub use primes::{factorize, is_prime};
-pub use unionfind::UnionFind;
+pub use unionfind::{UnionFind, WeightedUnionFind};
