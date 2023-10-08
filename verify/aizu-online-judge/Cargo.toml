@@ -1,8 +1,8 @@
 [package]
-name = "verification"
+name = "aizu-online-judge"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-procon-lib-rs = { path = "../" }
+procon-lib-rs = { path = "../../" }
 proconio = { version = "=0.4.5", features = ["derive"] }

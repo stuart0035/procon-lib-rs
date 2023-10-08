@@ -1,5 +1,5 @@
 [workspace]
-members = ["verification/"]
+members = ["verify/aizu-online-judge", "verify/library-checker"]
 
 [package]
 name = "procon-lib-rs"
