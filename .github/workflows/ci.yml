@@ -9,6 +9,7 @@ on:
 env:
   CARGO_TERM_COLOR: always
   RUSTFLAGS: -D warnings
+  RUSTDOCFLAGS: --html-in-header katex-header.html
 
 jobs:
   lint:
@@ -68,7 +69,7 @@ jobs:
         path: target/doc
 
   deploy:
-  
+
      needs: doc
      permissions:
        pages: write
@@ -77,7 +78,7 @@ jobs:
        name: github-pages
        url: ${{ steps.deployment.outputs.page_url }}
      runs-on: ubuntu-latest
-  
+
      steps:
        - name: Deploy to GitHub Pages
          id: deployment
