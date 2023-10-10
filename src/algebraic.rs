@@ -3,6 +3,15 @@ use std::convert::Infallible;
 use std::marker::PhantomData;
 use std::ops::{Add, BitAnd, BitOr, BitXor, Mul, Not};
 
+/// The algebraic structure that consists of a set $S$
+/// and a binary operation $\cdot$,
+/// and satisfies the following properties:
+///
+/// - Associativity:
+/// $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ for all $a, b, c \in S$.
+/// - Identity Element:
+/// There exists some $e \in S$ such that
+/// $a \cdot e = e \cdot a = a$ for all $a \in S$.
 pub trait Monoid {
     type S: Clone;
     fn id() -> Self::S;
