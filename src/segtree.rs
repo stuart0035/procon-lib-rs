@@ -28,6 +28,21 @@ where
     }
 }
 
+impl<M: Monoid, const N: usize> From<[M::S; N]> for SegTree<M> {
+    /// ```
+    /// use procon_lib::{Additive, SegTree};
+    ///
+    /// let mut base = [1, 4, 2, 3];
+    /// let mut seg = SegTree::<Additive<_>>::from([1, 4, 2, 3]);
+    /// for i in 0..4 {
+    ///     assert_eq!(base[i], seg.get(i));
+    /// }
+    /// ```
+    fn from(arr: [M::S; N]) -> Self {
+        Self::from_iter(arr)
+    }
+}
+
 impl<M> FromIterator<M::S> for SegTree<M>
 where
     M: Monoid,

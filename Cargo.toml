@@ -3,7 +3,7 @@ members = ["verify/aizu-online-judge", "verify/library-checker"]
 
 [package]
 name = "procon-lib-rs"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["stuart0035"]
 edition = "2021"
 license = "CC0-1.0"
