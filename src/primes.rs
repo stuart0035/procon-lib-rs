@@ -1,4 +1,4 @@
-use crate::internal_montgomery::Montgomery;
+use crate::internal_math::Montgomery;
 
 const BASES_SMALL: [u64; 3] = [2, 7, 61];
 const BASES_LARGE: [u64; 7] = [2, 325, 9375, 28178, 450775, 9780504, 1795265022];
