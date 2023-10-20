@@ -18,6 +18,7 @@ pub use algebraic::{
 };
 pub use fenwick_tree::FenwickTree;
 pub use interval_heap::IntervalHeap;
+pub use math::{checked_inv_mod, inv_mod, pow_mod};
 pub use modint::{
     Barrett, DefaultId, DynamicModInt, Id, ModInt, ModInt1000000007, ModInt998244353, RemEuclidU32,
     StaticModInt,
